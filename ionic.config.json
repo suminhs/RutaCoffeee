@@ -1,0 +1,7 @@
+{
+  "name": "RutaCoffee",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
