@@ -1,0 +1,113 @@
+/* ====== Estilo general del perfil ====== */
+ion-card {
+  margin: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  background: #fff;
+}
+
+ion-card-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+}
+
+ion-card-subtitle {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ====== Campos ====== */
+ion-item {
+  --background: transparent;
+  margin-top: 6px;
+}
+
+ion-label {
+  font-weight: 500;
+  color: #111;
+  font-size: 0.85rem;
+}
+
+/* Input Angular Material */
+input[matInput] {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  color: #111;
+  background-color: #fff;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:focus {
+    border: 1px solid #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    outline: none;
+  }
+}
+
+/* Botón del calendario */
+.mat-datepicker-toggle {
+  color: #3b82f6 !important;
+}
+
+/* ====== Estilos del calendario ====== */
+.mat-datepicker-content {
+  background-color: #ffffff !important;
+  color: #1a1a1a !important;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+.mat-calendar-header {
+  background-color: #3b82f6;
+  color: white !important;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.mat-calendar-table-header th {
+  color: #3b82f6 !important;
+  font-weight: 600;
+}
+
+.mat-calendar-body-cell {
+  color: #333 !important;
+}
+
+.mat-calendar-body-selected {
+  background-color: #4b10b9 !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 2px solid #3b82f6 !important;
+  border-radius: 50%;
+}
+
+.mat-calendar-body-cell:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-radius: 50%;
+}
+
+/* ====== Botón de guardar ====== */
+ion-button {
+  margin-top: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  --box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* ====== Botón de limpiar===== */
+
+ion-button {
+  margin-top: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  --box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegionsPageRoutingModule } from './regions-routing.module';
+import { CerrarSesionPageRoutingModule } from './cerrar-sesion-routing.module';
 
-import { RegionsPage } from './regions.page';
+import { CerrarSesionPage } from './cerrar-sesion.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegionsPageRoutingModule
+    CerrarSesionPageRoutingModule
   ],
-  declarations: [RegionsPage]
+  declarations: [CerrarSesionPage]
 })
-export class RegionsPageModule {}
+export class CerrarSesionPageModule {}

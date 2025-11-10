@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contáctanos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Card: Quiénes somos -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>¿Quiénes somos?</ion-card-title>      
+    </ion-card-header>
+
+    <ion-card-content>
+      Somos una aplicación que busca facilitar la búsqueda de nuevas cafeterías en las distintas regiones de Chile.
+      Con un solo click, podrás encontrar las cafeterías locales y su ubicación.
+    </ion-card-content>    
+  </ion-card>
+
+  <!-- Card: Cómo contactarnos -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Cómo contactarnos</ion-card-title>      
+    </ion-card-header>
+
+    <ion-card-content>
+      Si quieres que tu cafetería local aparezca en nuestra aplicación, envíanos un mensaje.
+    </ion-card-content>
+    
+    <ion-button expand="block" fill="solid" color="primary" routerLink="/mensaje">
+      Enviar mensaje
+    </ion-button>
+  </ion-card>
+</ion-content>

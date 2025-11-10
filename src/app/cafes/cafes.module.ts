@@ -1,12 +1,9 @@
-import { NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { CafesPageRoutingModule } from './cafes-routing.module';
-
 import { CafesPage } from './cafes.page';
+import { NgModule } from '@angular/core';
 
 @NgModule({
   imports: [

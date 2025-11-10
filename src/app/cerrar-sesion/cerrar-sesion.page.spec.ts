@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RegionsPage } from './regions.page';
+import { CerrarSesionPage } from './cerrar-sesion.page';
 
-describe('RegionsPage', () => {
-  let component: RegionsPage;
-  let fixture: ComponentFixture<RegionsPage>;
+describe('CerrarSesionPage', () => {
+  let component: CerrarSesionPage;
+  let fixture: ComponentFixture<CerrarSesionPage>;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegionsPage);
+    fixture = TestBed.createComponent(CerrarSesionPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

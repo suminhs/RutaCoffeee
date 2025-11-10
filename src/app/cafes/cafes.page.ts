@@ -7,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class CafesPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

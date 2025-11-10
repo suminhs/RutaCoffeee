@@ -3,41 +3,38 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-    
-  },
-  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+  },
+  {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
-    path: 'cafes',
-    loadChildren: () => import('./cafes/cafes.module').then( m => m.CafesPageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
-    path: 'regions',
-    loadChildren: () => import('./regions/regions.module').then( m => m.RegionsPageModule)
+    path: 'contactanos',
+    loadChildren: () => import('./contactanos/contactanos.module').then(m => m.ContactanosPageModule)
   },
+  {
+    path: 'cerrar-sesion',
+    loadChildren: () => import('./cerrar-sesion/cerrar-sesion.module').then(m => m.CerrarSesionPageModule)
+  },
+  {
+    path: 'cafes',
+    loadChildren: () => import('./cafes/cafes.module').then(m => m.CafesPageModule)
+  }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

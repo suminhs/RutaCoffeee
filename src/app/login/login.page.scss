@@ -22,8 +22,8 @@
     align-items: center;
     height: 100vh;
     width: 100%;
-
 }
+
     // Caja con información //
 .login-box {
     width: 90%;    
@@ -68,23 +68,13 @@
   }
 }
 
-/* Cambios en img de 1.png */
-.logo-container {
-    display: flex;
-    justify-content: right;
-    margin-right: 95px;       
-}
+// RutaCoffee //
 
-.logo {
-    width: 40px;
-    height: auto;    
-}
-
-    // RutaCoffee //
 ion-title {
     color: #552701;
     text-align: center;
-    font-size: 1.4rem;      
+    font-size: 1.4rem;
+    margin: 0;      
 }
 
 ion-card {

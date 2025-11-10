@@ -1,20 +1,76 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+<!-- Menú lateral -->
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="light">
+      <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <ion-content>
+    <ion-list>
+      <!-- Perfil -->
+      <ion-item routerLink="/profile" routerDirection="forward" (click)="closeMenu()">
+        <ion-label>Mi Perfil</ion-label>
+      </ion-item>
+
+      <!-- Cafés -->
+      <ion-item routerLink="/cafes" routerDirection="forward" (click)="closeMenu()">
+        <ion-label>Cafés</ion-label>
+      </ion-item>
+
+      <!-- Contáctanos -->
+      <ion-item routerLink="/contactanos" routerDirection="forward" (click)="closeMenu()">
+        <ion-label>Contáctanos</ion-label>
+      </ion-item>
+
+      <!-- Cerrar Sesión -->
+      <ion-item (click)="cerrarSesion()">
+        <ion-label color="danger">Cerrar Sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Contenido principal -->
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar color="light">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>        
+      </ion-buttons>
+      <ion-title>RutaCoffee</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" class="ion-padding">
+    <h2 class="ion-text-center">Bienvenido a RutaCoffee ☕</h2>
+    <p class="ion-text-center-subtitulo">Explora los mejores cafés de tu zona.</p>
+
+    <!-- Contenedor de avatares -->
+    <div class="avatar-grid">
+      <ion-avatar>
+        <img alt="Santiago" src="../../assets/img/stgo.png" />
+      </ion-avatar>
+
+      <ion-avatar>
+        <img alt="Valparaíso" src="../../assets/img/valpo.png" />
+      </ion-avatar>
+
+      <ion-avatar>
+        <img alt="Valdivia" src="../../assets/img/valdivia.png" />
+      </ion-avatar>
+
+      <ion-avatar>
+        <img alt="Chiloé" src="../../assets/img/chiloe.png" />
+      </ion-avatar>
+
+      <ion-avatar>
+        <img alt="PuertoVaras" src="../../assets/img/ptovaras.png" />
+      </ion-avatar>
+
+      <ion-avatar>
+        <img alt="La Serena" src="../../assets/img/laserena.png" />
+      </ion-avatar>
+    </div>
+  </ion-content>
+</div>
