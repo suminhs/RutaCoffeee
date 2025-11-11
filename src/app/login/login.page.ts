@@ -53,10 +53,10 @@ export class LoginPage {
       return;
     }
 
-    // ✅ Guardar usuario logueado en localStorage
+    //  Guardar usuario logueado en localStorage
     localStorage.setItem('usuario', this.usuario);
 
-    // ✅ Navegar a la página de perfil, pasando el usuario como string
+    // Navegar a la página de perfil, pasando el usuario como string
     this.navCtrl.navigateForward('/home', {
       state: { user: this.usuario }
     });

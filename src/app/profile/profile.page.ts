@@ -53,7 +53,7 @@ limpiarCampos() {
   this.telefono = '';
   this.fechaNacimiento = null;
 
-  // Opcional: eliminar también del localStorage si se desea limpiar guardado
+  // Eliminar también del localStorage si se desea limpiar guardado
   if (this.user && this.user !== 'Invitado') {
     localStorage.removeItem(`perfil_${this.user}`);
   }
@@ -66,7 +66,7 @@ limpiarCampos() {
   }).then(toast => toast.present());
 }
 
-  // ✅ Guardar los cambios del perfil
+  //  Guardar los cambios del perfil
   async guardarCambios() {
     if (!this.user || this.user === 'Invitado') {
       const alerta = await this.toastController.create({

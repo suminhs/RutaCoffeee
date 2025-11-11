@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, // Necesario para Angular Material
+    BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
@@ -29,6 +29,6 @@ import { FormsModule } from '@angular/forms';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // 👈 Permite usar componentes de Ionic y Material juntos
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
