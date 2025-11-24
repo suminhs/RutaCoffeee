@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginPage {
 
   constructor(
     private alertController: AlertController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) { }
 
   // Método para mostrar alerta de error
@@ -26,6 +28,10 @@ export class LoginPage {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  goToRegistro() {
+    this.router.navigate(['/registro']);
   }
 
   login() {
@@ -60,5 +66,6 @@ export class LoginPage {
     this.navCtrl.navigateForward('/home', {
       state: { user: this.usuario }
     });
+   
   }
 }

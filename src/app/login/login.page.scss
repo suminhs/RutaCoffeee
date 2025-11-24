@@ -1,16 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+/* Cambios en img de rutacoffee.png */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -120px;
+    margin-bottom: -50px;     
+}
 
-    // Fuente letra //
-.indie-flower-regular {
-  font-family: "Indie Flower", cursive;
-  font-weight: 400;
-  font-style: normal;
+.logo {
+    width: 350px;
+    height: auto;
+    animation: zoomIn 3s ease-in-out infinite alternate;
+}
+
+/* Animación de zoomIn suave */
+@keyframes zoomIn {
+    0% {
+        transform: scale(1);        
+    }
+    100% {
+        transform: scale(0.9);
+    }
 }
 
     // Fondo de pantalla //
 .login-background {
     --background: none;
-    background-image: url(../../assets/img/login.png);
+    background-image: url(../../assets/img/fondo1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -94,9 +109,8 @@ ion-card-title {
 ion-card-subtitle {
     --color: #ffffff;
     text-align: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-size: 1.5rem;    
+    margin-top: 70px;        
+    font-size: 1.8rem;    
 }
 
     // Usuario y contraseña //
@@ -117,4 +131,23 @@ ion-button {
     // color cuando escribo //
 ion-input {
     color: black;
+}
+
+  // Boton Registro
+.register-text {
+  margin-top: 12px;
+  display: block;
+  text-align: center;
+  color: black;
+}
+
+.link {
+  color: #000000;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: large;
+}
+
+ion-text {
+  color: black;
 }
