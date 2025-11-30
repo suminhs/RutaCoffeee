@@ -1,0 +1,109 @@
+.fondo {
+    --background: none;
+    background-image: url(../../../assets/img/img1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+ion-card {
+    background-color: white;    
+    box-shadow: black;
+    border-radius: 5%;
+    margin: 10%  auto;
+    width: 90%; 
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding-top: 20%;
+  }
+
+  .login-container img {
+    width: 60%;  
+  }
+
+  ion-card ion-input {
+    --background: transparent;
+    color: black
+  }
+  
+  ion-card input {
+    background-color: transparent; 
+    color: black;
+  } 
+
+
+  ion-card ion-label {
+    --background: transparent;
+    color: black 
+  }
+  
+  ion-card label {
+    background-color: transparent;
+    color: black; 
+  }
+
+
+  ion-card ion-item {
+    --background: transparent;
+    color: black;    
+  }
+  
+  ion-card ion-button.login-button {
+    --background: black;
+    color: white; 
+  }
+
+
+  ion-card ion-select {
+    --background: transparent; /* Fondo transparente */
+    color: black; 
+  }
+  
+  ion-card select {
+    background-color: transparent; 
+    color: black; 
+  }
+
+  mat-form-field {
+    background-color: transparent; 
+  }
+  
+  mat-form-field .mat-form-field-flex {
+    background-color: transparent; 
+  }
+  
+  mat-form-field .mat-form-field-infix {
+    background-color: transparent; 
+  }
+  
+  input[matInput] {
+    background-color: transparent;
+    color: black; 
+  }
+  
+  mat-datepicker-toggle {
+    background-color: transparent;
+  }
+
+  ion-card ion-button {
+    --background: #160c00a2; 
+    color: white;
+    padding: 10px;
+  }
+
+  .center-title {
+    margin: 0 auto;
+    text-align: center;
+  }

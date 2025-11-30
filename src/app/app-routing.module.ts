@@ -1,40 +1,51 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth-guard';
 
 const routes: Routes = [
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+  },
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
-  },
+  },  
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  },
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+      canActivate: [AuthGuard]
+  },  
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'contactanos',
-    loadChildren: () => import('./contactanos/contactanos.module').then(m => m.ContactanosPageModule)
+    loadChildren: () => import('./pages/contactanos/contactanos.module').then(m => m.ContactanosPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'cerrar-sesion',
-    loadChildren: () => import('./cerrar-sesion/cerrar-sesion.module').then(m => m.CerrarSesionPageModule)
+    loadChildren: () => import('./pages/cerrar-sesion/cerrar-sesion.module').then(m => m.CerrarSesionPageModule)
   },
   {
     path: 'cafes',
-    loadChildren: () => import('./cafes/cafes.module').then(m => m.CafesPageModule)
+    loadChildren: () => import('./pages/cafes/cafes.module').then(m => m.CafesPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule),
+    
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
   }
+  
 ];
 
 @NgModule({
