@@ -17,7 +17,7 @@ export class LoginPage {
   constructor(
     private alertController: AlertController,
     private navCtrl: NavController,
-    private dataServices: DbserviceService) { }
+    private dataServices: DbserviceService) {}
 
   // Mostrar alerta de error
   async mostrarAlerta(mensaje: string) {
@@ -58,30 +58,26 @@ export class LoginPage {
       return;
     }
 
-    //  Si todas las validaciones son correctas
-    localStorage.setItem('usuarioActivo', 'true');
-      
+    // Llamar al servicio para validar credenciales
+    const isAuthenticated = await this.dataServices.loginUser(this.usuario, this.password);
 
-  // Validación con el servicio de autenticación
-  const isAuthenticated = await this.dataServices.loginUser(this.usuario, this.password);
+    if (isAuthenticated) {
 
-  if (isAuthenticated) {    
+      // Guardar datos del usuario activo
+      localStorage.setItem('username', this.usuario);
+      localStorage.setItem('usuarioActivo', 'true');
 
-    // Guardar el nombre del usuario en Local Storage
-     localStorage.setItem('username', this.usuario);
-     localStorage.setItem('usuarioActivo', 'true'); 
+      // Navegar a Home con el usuario
+      this.navCtrl.navigateForward('/home', {
+        queryParams: { user: this.usuario }
+      });
 
-    // Navegar a la página de perfil, pasando el usuario como string
-    this.navCtrl.navigateForward('/home', {
-      queryParams: { user: this.usuario }
-    });   
     } else {
       await this.mostrarAlerta('Usuario o contraseña incorrectos.');
     }
   }
 
-    registro()
-  {
+  registro() {
     this.navCtrl.navigateForward(['/registro']);
   }
 }

@@ -2,54 +2,70 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard';
 
-const routes: Routes = [
+const routes: Routes = [  
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
-  },
+    loadChildren: () =>
+      import('./pages/login/login.module').then(m => m.LoginPageModule)
+  },  
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },  
+  },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-      canActivate: [AuthGuard]
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+     canActivate: [AuthGuard]
+    
+  },  
+  {
+    path: 'registro',
+    loadChildren: () =>
+      import('./pages/registro/registro.module').then(m => m.RegistroPageModule)
+  },  
+  {
+    path: 'tabs',
+    loadChildren: () =>
+      import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AuthGuard]
   },  
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule),
+    loadChildren: () =>
+      import('./pages/profile/profile.module').then(m => m.ProfilePageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'contactanos',
-    loadChildren: () => import('./pages/contactanos/contactanos.module').then(m => m.ContactanosPageModule),
+    loadChildren: () =>
+      import('./pages/contactanos/contactanos.module').then(m => m.ContactanosPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'cerrar-sesion',
-    loadChildren: () => import('./pages/cerrar-sesion/cerrar-sesion.module').then(m => m.CerrarSesionPageModule)
+    loadChildren: () =>
+      import('./pages/cerrar-sesion/cerrar-sesion.module').then(m => m.CerrarSesionPageModule)
   },
   {
     path: 'cafes',
-    loadChildren: () => import('./pages/cafes/cafes.module').then(m => m.CafesPageModule),
+    loadChildren: () =>
+      import('./pages/cafes/cafes.module').then(m => m.CafesPageModule),
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'registro',
-    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule),
-    
-  },
+  },  
   {
     path: '**',
-    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
+    loadChildren: () =>
+      import('./not-found/not-found.module').then(m => m.NotFoundPageModule)
   }
-  
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

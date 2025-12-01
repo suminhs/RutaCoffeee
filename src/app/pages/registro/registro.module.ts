@@ -8,11 +8,11 @@ import { RegistroPageRoutingModule } from './registro-routing.module';
 
 import { RegistroPage } from './registro.page';
 
-import { MatDatepickerModule } from '@angular/material/datepicker'; 
-import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';  
-import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+
 import { FormtearFechaPipe } from '../../pipes/formtear-fecha.pipe';  
 
 
@@ -25,8 +25,7 @@ import { FormtearFechaPipe } from '../../pipes/formtear-fecha.pipe';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
-    MatNativeDateModule, 
-    MatIconModule 
+    MatNativeDateModule,      
   ],
   declarations: [RegistroPage],
   providers: [FormtearFechaPipe]  
