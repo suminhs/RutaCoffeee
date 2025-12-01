@@ -11,7 +11,7 @@
       <ion-card-title>Bienvenido!</ion-card-title>    
     </ion-card-header>
 
-  <ion-card-content  class="indie-flower-regular">
+  <ion-card-content>
 
     <ion-item>
       <ion-input placeholder="Usuario" [(ngModel)]="usuario"></ion-input>
@@ -23,9 +23,13 @@
 
     <ion-button expand="block" (click)="login()">Ingresar</ion-button>    
     
-    <ion-text (click)="registro()">
-  ¿No tienes cuenta? <span class="link">Regístrate</span>
-    </ion-text>
+      <ion-text class="registro-text" (click)="registro()">
+        ¿No tienes cuenta? <span class="link">Regístrate</span>
+      </ion-text>
+
+      <ion-text class="olvide-text">
+        <span>¿Olvidaste tu contraseña?</span>
+      </ion-text>
   
   </ion-card-content>  
 

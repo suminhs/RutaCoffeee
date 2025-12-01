@@ -12,11 +12,11 @@ export class AuthGuard implements CanActivate {
     const sesionActiva = localStorage.getItem('usuarioActivo') === 'true';
 
     if (!sesionActiva) {
-      this.router.navigate(['/login']); // redirige al login si no hay sesión
+      this.router.navigate(['/login']); 
       return false;
     }
 
-    return true; // permite el acceso
+    return true;
   }
 }
 

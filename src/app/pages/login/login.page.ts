@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { DbserviceService } from '../../services/dbservice.service'
-
+import { DbserviceService } from '../../services/dbservice.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,15 @@ export class LoginPage {
   constructor(
     private alertController: AlertController,
     private navCtrl: NavController,
-    private dataServices: DbserviceService) {}
+    private dataServices: DbserviceService,
+    private storage: Storage
+  ) {}
 
-  // Mostrar alerta de error
+  async ngOnInit() {
+    await this.storage.create(); // Inicializa Storage
+  }
+
+  // Alerta simple
   async mostrarAlerta(mensaje: string) {
     const alert = await this.alertController.create({
       header: 'Error',
@@ -30,13 +36,14 @@ export class LoginPage {
   }
 
   // Validación de usuario
-    validarlogin() {         
+  validarlogin() {
     const usuarioRegex = /^[a-zA-Z0-9]{3,8}$/;
     return usuarioRegex.test(this.usuario);
-    }
+  }
 
-    async login() {
+  async login() {
 
+    // Validaciones
     if (!this.usuario) {
       this.mostrarAlerta('El campo de usuario no puede estar vacío.');
       return;
@@ -47,33 +54,29 @@ export class LoginPage {
       return;
     }
 
-    // Validación de contraseña
     if (!this.password) {
       this.mostrarAlerta('El campo de contraseña no puede estar vacío.');
       return;
     }
 
-    if (this.password.length !== 4 || !/^\d{4}$/.test(this.password)) {
+    if (!/^\d{4}$/.test(this.password)) {
       this.mostrarAlerta('La contraseña debe tener 4 números.');
       return;
     }
 
-    // Llamar al servicio para validar credenciales
+    // Validación con SQLite
     const isAuthenticated = await this.dataServices.loginUser(this.usuario, this.password);
 
     if (isAuthenticated) {
 
-      // Guardar datos del usuario activo
-      localStorage.setItem('username', this.usuario);
-      localStorage.setItem('usuarioActivo', 'true');
+      // ⭐ Guardamos al usuario logueado
+      await this.storage.set('usuarioLogueado', this.usuario);
 
-      // Navegar a Home con el usuario
-      this.navCtrl.navigateForward('/home', {
-        queryParams: { user: this.usuario }
-      });
+      // ⭐ Redirigimos al HOME (NO al profile)
+      this.navCtrl.navigateRoot('/home');
 
     } else {
-      await this.mostrarAlerta('Usuario o contraseña incorrectos.');
+      this.mostrarAlerta('Usuario o contraseña incorrectos.');
     }
   }
 

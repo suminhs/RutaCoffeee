@@ -12,7 +12,7 @@ export class DbserviceService {
   public dbInstance!: SQLiteObject;
 
   constructor(private sqlite: SQLite) {
-    // Espera a que la BD esté lista antes de usarla
+
     this.dbReady = new Promise(resolve => {
       this.dbReadyResolve = resolve;
     });
@@ -22,7 +22,7 @@ export class DbserviceService {
 
   async init() {
     await this.initializeDatabase();
-    this.dbReadyResolve(); // Marca la BD como lista
+    this.dbReadyResolve();
   }
 
   async isReady() {
@@ -58,9 +58,9 @@ export class DbserviceService {
     console.log("TABLA USUARIOS LISTA");
   }
 
-  // ==========================
-  //  Registrar usuario
-  // ==========================
+  // ======================================
+  // Registrar usuario
+  // ======================================
   async registerUser(
     nombre: string,
     apellido: string,
@@ -72,45 +72,30 @@ export class DbserviceService {
 
     await this.isReady();
 
-    // Verificar existencia previa antes del insert
     const exists = await this.userExists(usuario);
     if (exists) {
-      console.log("Usuario duplicado (detectado antes del insert)");
+      console.log("Usuario duplicado");
       return false;
     }
 
-    const sql = `
-      INSERT INTO usuarios (nombre, apellido, usuario, email, password, fecha_nacimiento)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
     try {
-      await this.dbInstance.executeSql(sql, [
-        nombre,
-        apellido,
-        usuario,
-        email,
-        password,
-        fechaNacimiento
-      ]);
+      await this.dbInstance.executeSql(
+        `INSERT INTO usuarios (nombre, apellido, usuario, email, password, fecha_nacimiento)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [nombre, apellido, usuario, email, password, fechaNacimiento]
+      );
 
       return true;
 
     } catch (error: any) {
-
-      if (error?.message?.includes("UNIQUE constraint failed")) {
-        console.error("El usuario ya existe (sqlite).");
-        return false;
-      }
-
-      console.error('Error registrando usuario:', error);
+      console.error("Error registrando usuario:", error);
       return false;
     }
   }
 
-  // ==========================
-  //  Login
-  // ==========================
+  // ======================================
+  // Login
+  // ======================================
   async loginUser(usuario: string, password: string): Promise<boolean> {
 
     await this.isReady();
@@ -129,9 +114,35 @@ export class DbserviceService {
     }
   }
 
-  // ==========================
-  //  Verificar si el usuario existe
-  // ==========================
+  // ======================================
+  // Obtener datos del usuario
+  // NECESARIO PARA GUARDARLO EN STORAGE
+  // ======================================
+  async getUserByUsuario(usuario: string): Promise<any> {
+
+    await this.isReady();
+
+    try {
+      const result = await this.dbInstance.executeSql(
+        'SELECT * FROM usuarios WHERE usuario = ?',
+        [usuario]
+      );
+
+      if (result.rows.length > 0) {
+        return result.rows.item(0); // Retorna objeto completo
+      } else {
+        return null;
+      }
+
+    } catch (error) {
+      console.error("Error obteniendo usuario:", error);
+      return null;
+    }
+  }
+
+  // ======================================
+  // Verificar existencia
+  // ======================================
   async userExists(usuario: string): Promise<boolean> {
 
     await this.isReady();
@@ -142,5 +153,34 @@ export class DbserviceService {
     );
 
     return result.rows.length > 0;
+  }
+
+// ======================================
+// Actualizar usuario
+// ======================================
+async actualizarUsuario(data: any): Promise<boolean> {
+  await this.isReady();
+
+  const sql = `
+    UPDATE usuarios
+    SET nombre = ?, apellido = ?, email = ?, fecha_nacimiento = ?
+    WHERE usuario = ?
+  `;
+
+  try {
+    await this.dbInstance.executeSql(sql, [
+      data.nombre,
+      data.apellido,
+      data.email,
+      data.fecha_nacimiento,
+      data.usuario
+    ]);
+
+    return true;
+
+  } catch (error) {
+    console.error("Error actualizando usuario:", error);
+    return false;
+  }
   }
 }

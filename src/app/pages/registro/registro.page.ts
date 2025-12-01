@@ -41,7 +41,6 @@ export class RegistroPage implements OnInit {
   }
 
   guardar() {
-    console.log("GUARDAR OK");
 
     if (!this.nombre.trim() || !this.apellido.trim()) {
       this.presentAlert("Debe ingresar nombre y apellido.");
@@ -82,7 +81,6 @@ export class RegistroPage implements OnInit {
   }
 
   async registrar() {
-    console.log("REGISTRAR OK");
 
     const fechaFormateada = this.formtearFechaPipe.transform(this.selectedDate);
 
@@ -97,7 +95,10 @@ export class RegistroPage implements OnInit {
 
     if (success) {
       await this.presentAlert("Registro exitoso. Ahora puedes iniciar sesión.");
-      this.navCtrl.navigateForward('/login');
+
+      // 👇 IMPORTANTE: redirigir correctamente para evitar saltar al Profile
+      this.navCtrl.navigateRoot('/login');
+
     } else {
       this.presentAlert("Error al registrar. El usuario ya existe o ocurrió un error.");
     }

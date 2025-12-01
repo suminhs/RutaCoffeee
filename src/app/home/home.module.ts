@@ -6,6 +6,11 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 
+// IMPORTA TUS COMPONENTES
+import { MisDatosComponent } from '../components/mis-datos/mis-datos.component';
+import { ExperienciaLaboralComponent } from '../components/experiencia-laboral/experiencia-laboral.component';
+import { CertificacionesComponent } from '../components/certificaciones/certificaciones.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -13,6 +18,11 @@ import { HomePage } from './home.page';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [
+    HomePage,
+    MisDatosComponent,
+    ExperienciaLaboralComponent,
+    CertificacionesComponent
+  ]
 })
 export class HomePageModule {}

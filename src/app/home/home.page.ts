@@ -10,10 +10,14 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
+  segmentValue: string = 'datos';
+
   constructor(
     private menu: MenuController,
     private router: Router
   ) {}
+
+  
 
   closeMenu() {
     this.menu.close();

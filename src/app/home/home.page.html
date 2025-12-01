@@ -43,34 +43,30 @@
   </ion-header>
 
   <ion-content [fullscreen]="true" class="ion-padding">
-    <h2 class="ion-text-center">NOTICIAS</h2>
-    <p class="ion-text-center-subtitulo">Los nuevos cafés inscritos en el país</p>
 
-    <!-- Contenedor de avatares -->
-    <div class="avatar-grid">
-      <ion-avatar>
-        <img alt="Santiago" src="../../assets/img/stgo.png" />
-      </ion-avatar>
+  <h2 class="ion-text-center">DATOS PERSONALES</h2>
 
-      <ion-avatar>
-        <img alt="Valparaíso" src="../../assets/img/valpo.png" />
-      </ion-avatar>
+  <!-- SEGMENT -->
+  <ion-segment [(ngModel)]="segmentValue">
+    <ion-segment-button value="datos">
+      <ion-label>Mis Datos</ion-label>
+    </ion-segment-button>
 
-      <ion-avatar>
-        <img alt="Valdivia" src="../../assets/img/valdivia.png" />
-      </ion-avatar>
+    <ion-segment-button value="experiencia">
+      <ion-label>Experiencia Laboral</ion-label>
+    </ion-segment-button>
 
-      <ion-avatar>
-        <img alt="Chiloé" src="../../assets/img/chiloe.png" />
-      </ion-avatar>
+    <ion-segment-button value="certificaciones">
+      <ion-label>Certificaciones</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-      <ion-avatar>
-        <img alt="PuertoVaras" src="../../assets/img/ptovaras.png" />
-      </ion-avatar>
+  <!-- CONTENEDOR DEL SEGMENT -->
+  <div class="segment-content">
+    <app-mis-datos *ngIf="segmentValue === 'datos'"></app-mis-datos>
+    <app-experiencia-laboral *ngIf="segmentValue === 'experiencia'"></app-experiencia-laboral>
+    <app-certificaciones *ngIf="segmentValue === 'certificaciones'"></app-certificaciones>
+  </div>
 
-      <ion-avatar>
-        <img alt="La Serena" src="../../assets/img/laserena.png" />
-      </ion-avatar>
-    </div>
-  </ion-content>
+</ion-content>
 </div>

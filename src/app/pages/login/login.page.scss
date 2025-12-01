@@ -124,21 +124,28 @@ ion-input {
     color: black;
 }
 
-  // Boton Registro
-.register-text {
-  margin-top: 12px;
+.registro-text {
   display: block;
+  margin-top: 16px;
   text-align: center;
+  font-size: 15px;
   color: black;
 }
 
 .link {
   color: #000000;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: large;
+  font-weight: bold;
 }
 
-ion-text {
-  color: black;
+.olvide-text {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.olvide-text span {
+  color: black !important;
+  text-decoration: underline;
+  font-size: 13px;
+  cursor: pointer;
 }

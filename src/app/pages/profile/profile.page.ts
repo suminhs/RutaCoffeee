@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { DbserviceService } from '../../services/dbservice.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-profile',
@@ -10,62 +10,59 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  user: string = '';
+  user: any = ''; // usuario logueado
+
   nombre: string = '';
   correo: string = '';
   telefono: string = '';
-  fechaNacimiento: Date | null = null;
+  fechaNacimiento: any = '';
 
   constructor(
-    private toastController: ToastController,
-    private router: Router
+    private dbService: DbserviceService,
+    private storage: Storage
   ) {}
 
-  ngOnInit() {
-    // Los datos no se guardan al cambiar de página o recargar
-  }
+  async ngOnInit() {
+    await this.storage.create();
 
-  // Limpiar todos los campos del perfil
-  async limpiarCampos() {
-    this.nombre = '';
-    this.correo = '';
-    this.telefono = '';
-    this.fechaNacimiento = null;
+    // 1) Obtener usuario logueado desde Storage
+    this.user = await this.storage.get('usuarioLogueado');
 
-    const toast = await this.toastController.create({
-      message: 'Campos del perfil limpiados.',
-      duration: 2000,
-      color: 'medium',
-    });
-    toast.present();
-  }
-
-  // Guardar los cambios del perfil
-  async guardarCambios() {
-    if (!this.user || this.user === 'Invitado') {
-      const alerta = await this.toastController.create({
-        message: 'Debes iniciar sesión para guardar cambios.',
-        duration: 2000,
-        color: 'warning',
-      });
-      alerta.present();
-      return;
+    if (this.user) {
+      // 2) Buscar sus datos en la BD
+      this.cargarDatosUsuario(this.user);
     }
+  }
 
-    const datosPerfil = {
+  cargarDatosUsuario(usuario: string) {
+    this.dbService.getUserByUsuario(usuario).then((data: any) => {
+      if (data) {
+        this.nombre = data.nombre;
+        this.correo = data.correo;
+        this.telefono = data.telefono;
+        this.fechaNacimiento = data.fechaNacimiento;
+      }
+    });
+  }
+
+  guardarCambios() {
+    const datosActualizados = {
+      usuario: this.user,
       nombre: this.nombre,
       correo: this.correo,
       telefono: this.telefono,
-      fechaNacimiento: this.fechaNacimiento,
+      fechaNacimiento: this.fechaNacimiento
     };
 
-    console.log('Datos temporales:', datosPerfil);
-
-    const toast = await this.toastController.create({
-      message: 'Cambios guardados correctamente.',
-      duration: 2000,
-      color: 'success',
+    this.dbService.actualizarUsuario(datosActualizados).then(() => {
+      alert("Datos actualizados correctamente");
     });
-    toast.present();
+  }
+
+  limpiarCampos() {
+    this.nombre = '';
+    this.correo = '';
+    this.telefono = '';
+    this.fechaNacimiento = '';
   }
 }
