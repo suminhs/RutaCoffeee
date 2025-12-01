@@ -1,28 +1,35 @@
 import { Component } from '@angular/core';
-import { ApiClientesService } from '../../services/api-clientes.service';
+import { ApiClientesService } from 'src/app/services/api-clientes.service';
 
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.page.html',
-  standalone:false,
+  styleUrls: ['./create-post.page.css'],
+  standalone: false,
 })
 export class CreatePostPage {
 
-  title = '';
-  body = '';
+  title: string = '';
+  body: string = '';
 
   constructor(private api: ApiClientesService) {}
 
-  crearPost() {
+  enviarPost() {
     const data = {
       title: this.title,
       body: this.body,
       userId: 1
     };
 
-    this.api.createPost(data).subscribe(res => {
-      console.log('Post creado:', res);
-      alert('Post creado correctamente');
+    this.api.createPost(data).subscribe({
+      next: (res) => {
+        console.log('POST creado:', res);
+        alert('Post creado exitosamente');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error al crear el post');
+      }
     });
   }
 }

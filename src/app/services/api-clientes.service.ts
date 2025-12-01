@@ -1,32 +1,114 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiClientesService {
 
-  private apiUsers = 'https://jsonplaceholder.typicode.com/users';
-  private apiPosts = 'https://jsonplaceholder.typicode.com/posts';
+  // ===== BASE URL =====
+  private baseUrl = 'https://jsonplaceholder.typicode.com';
 
-  constructor(private http: HttpClient) { }
+  // ===== OPCIONES HTTP =====
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-  // ===== USUARIOS =====
+  constructor(private http: HttpClient) {}
+
+  // =============================
+  // 🔵 MANEJO DE ERRORES GLOBAL
+  // =============================
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('Error del cliente:', error.error.message);
+    } else {
+      console.error(`Backend retornó código ${error.status}, body: `, error.error);
+    }
+    return throwError(() => 'Error en la comunicación con API');
+  }
+
+  // =============================
+  // 🔵 CRUD USERS
+  // =============================
+  
+  // GET ALL USERS
   getUsers(): Observable<any> {
-    return this.http.get(this.apiUsers);
+    return this.http.get(`${this.baseUrl}/users`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
   }
 
-  AddUser(user: any): Observable<any> {
-    return this.http.post(this.apiUsers, user);
+  // CREATE USER
+  addUser(user: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users`, user, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  // ===== POSTS =====
+  // GET USER BY ID
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/users/${id}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  // UPDATE USER
+  updateUser(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/users/${id}`, data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // DELETE USER
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/users/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // =============================
+  // 🔵 CRUD POSTS
+  // =============================
+
   getPosts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiPosts);
+    return this.http.get<any[]>(`${this.baseUrl}/posts`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
   }
 
   createPost(data: any): Observable<any> {
-    return this.http.post(this.apiPosts, data);
+    return this.http.post(`${this.baseUrl}/posts`, data, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getPostById(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/posts/${id}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/posts/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 }
