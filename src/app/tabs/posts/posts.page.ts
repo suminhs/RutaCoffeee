@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiClientesService } from '../../services/api-clientes.service';
-
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.page.html',
@@ -12,23 +11,13 @@ export class PostsPage implements OnInit {
   posts: any[] = [];
   loading = true;
 
-  constructor(private api: ApiClientesService) {}
+  constructor(private navCtrl: NavController
+  ) {}
 
-  ngOnInit() {
-    this.cargarPosts();
-  }
+  ngOnInit() {}
 
-  cargarPosts() {
-    this.api.getPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.log('Error cargando posts', err);
-        this.loading = false;
-      }
-    });
+  goHome() {
+  this.navCtrl.navigateBack('/home');
   }
 
 }

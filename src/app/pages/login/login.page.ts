@@ -69,10 +69,12 @@ export class LoginPage {
 
     if (isAuthenticated) {
 
-      // ⭐ Guardamos al usuario logueado
+      // Guardamos al usuario logueado
       await this.storage.set('usuarioLogueado', this.usuario);
 
-      // ⭐ Redirigimos al HOME (NO al profile)
+      // Permiso para ir al home
+      localStorage.setItem('usuarioActivo', 'true');
+      
       this.navCtrl.navigateRoot('/home');
 
     } else {

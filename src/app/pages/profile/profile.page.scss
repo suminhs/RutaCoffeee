@@ -48,29 +48,6 @@ ion-label {
   font-size: 0.9rem;
 }
 
-/* Input Angular Material */
-input[matInput] {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 15px;
-  color: #111;
-  background-color: #fff;
-  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
-  &:focus {
-    border: 1px solid #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
-    outline: none;
-  }
-}
-
-/* Botón del calendario */
-.mat-datepicker-toggle {
-  color: #3b82f6;
-}
-
 /* Botones */
 
 .boton {

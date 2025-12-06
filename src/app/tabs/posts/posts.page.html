@@ -1,16 +1,14 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Posts</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let p of posts">
-      <ion-label>
-        <h2>{{ p.title }}</h2>
-        <p>{{ p.body }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- contenido de posts -->
 </ion-content>

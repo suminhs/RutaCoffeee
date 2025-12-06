@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cafes',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class CafesPage implements OnInit {
-  constructor() {}
+  constructor(
+    private navCtrl: NavController       
+  ) {}
+
+  goHome() {
+    this.navCtrl.navigateBack('/home');
+  }
 
   ngOnInit() {}
 }

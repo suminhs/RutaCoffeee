@@ -1,7 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Cafés</ion-title>
   </ion-toolbar>

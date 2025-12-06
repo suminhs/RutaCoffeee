@@ -1,72 +1,62 @@
-<!-- Menú lateral -->
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar color="light">
-      <ion-title>Menú</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <!-- Perfil -->
-      <ion-item routerLink="/profile" routerDirection="forward" (click)="closeMenu()">
-        <ion-label>Mi Perfil</ion-label>
-      </ion-item>
-
-      <!-- Cafés -->
-      <ion-item routerLink="/cafes" routerDirection="forward" (click)="closeMenu()">
-        <ion-label>Cafés</ion-label>
-      </ion-item>
-
-      <!-- Contáctanos -->
-      <ion-item routerLink="/contactanos" routerDirection="forward" (click)="closeMenu()">
-        <ion-label>Contáctanos</ion-label>
-      </ion-item>
-
-      <!-- Cerrar Sesión -->
-      <ion-item (click)="cerrarSesion()">
-        <ion-label color="danger">Cerrar Sesión</ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<!-- Contenido principal -->
-<div class="ion-page" id="main-content">
   <ion-header [translucent]="true">
     <ion-toolbar color="light">
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>        
+        <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Menú</ion-title>
+      <ion-title>Home</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content [fullscreen]="true" class="ion-padding">
 
-  <h2 class="ion-text-center">DATOS PERSONALES</h2>
+    <h2 class="ion-text-center">DATOS PERSONALES</h2>
 
-  <!-- SEGMENT -->
-  <ion-segment [(ngModel)]="segmentValue">
-    <ion-segment-button value="datos">
-      <ion-label>Mis Datos</ion-label>
-    </ion-segment-button>
+    <!-- SEGMENT -->
+    <ion-segment [(ngModel)]="segmentValue">
+      <ion-segment-button value="datos">
+        <ion-label>Mis Datos</ion-label>
+      </ion-segment-button>
 
-    <ion-segment-button value="experiencia">
-      <ion-label>Experiencia Laboral</ion-label>
-    </ion-segment-button>
+      <ion-segment-button value="experiencia">
+        <ion-label>Experiencia Laboral</ion-label>
+      </ion-segment-button>
 
-    <ion-segment-button value="certificaciones">
-      <ion-label>Certificaciones</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+      <ion-segment-button value="certificaciones">
+        <ion-label>Certificaciones</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
-  <!-- CONTENEDOR DEL SEGMENT -->
-  <div class="segment-content">
-    <app-mis-datos *ngIf="segmentValue === 'datos'"></app-mis-datos>
-    <app-experiencia-laboral *ngIf="segmentValue === 'experiencia'"></app-experiencia-laboral>
-    <app-certificaciones *ngIf="segmentValue === 'certificaciones'"></app-certificaciones>
-  </div>
+    <!-- CONTENEDOR DEL SEGMENT -->
+    <div class="segment-content">
+      <app-mis-datos *ngIf="segmentValue === 'datos'"></app-mis-datos>
+      <app-experiencia-laboral *ngIf="segmentValue === 'experiencia'"></app-experiencia-laboral>
+      <app-certificaciones *ngIf="segmentValue === 'certificaciones'"></app-certificaciones>
+    </div>
 
-</ion-content>
-</div>
+    <ion-router-outlet></ion-router-outlet>
+
+  </ion-content>
+  
+  <!-- TABS ABAJO -->
+  <ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button tab="posts" [routerLink]="['/home/posts']">
+      <ion-icon name="chatbubble-outline"></ion-icon>
+      <ion-label>Posts</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="noticias" [routerLink]="['/home/noticias']">
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <ion-label>Noticias</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="cafes" [routerLink]="['/home/cafes']">
+      <ion-icon name="cafe-outline"></ion-icon>
+      <ion-label>Cafés</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+</ion-tabs>

@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class AppComponent {
-  constructor(private menu: MenuController, private router: Router) {}
+  constructor(private menu: MenuController,
+              private router: Router) {}
 
   cerrarSesion() {
     localStorage.removeItem('usuarioActivo'); 
@@ -18,4 +19,9 @@ export class AppComponent {
     this.menu.close('mainMenu');
     this.router.navigate(['/login']);
   }
+
+  closeMenu() {
+    this.menu.close();
+  }
+
 }

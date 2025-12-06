@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
-    <ion-title>Regístrate</ion-title>
+    <ion-title>Crear cuenta</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,42 +14,38 @@
 
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+        <ion-input type="text" [(ngModel)]="nombre" placeholder="Ingresar nombre"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Apellido</ion-label>
-        <ion-input type="text" [(ngModel)]="apellido"></ion-input>
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input type="text" [(ngModel)]="apellido" placeholder="Ingresar apellidos"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Usuario</ion-label>
-        <ion-input type="text" [(ngModel)]="usuario"></ion-input>
+        <ion-input type="text" [(ngModel)]="usuario" placeholder="Ingresar usuario"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" [(ngModel)]="email"></ion-input>
+        <ion-input type="email" [(ngModel)]="email" placeholder="Ingresar correo"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="password" placeholder="Ingresar contraseña"></ion-input>
       </ion-item>
 
       <ion-item lines="none">
-        <ion-label>Fecha Nacimiento</ion-label>
+        <ion-label>Fecha de Nacimiento</ion-label>
       </ion-item>
 
       <div class="fecha-container">
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Seleccione una fecha</mat-label>
 
-          <input
-            matInput
-            [matDatepicker]="picker"
-            [(ngModel)]="selectedDate"
-          >
+          <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">      
 
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -58,10 +54,7 @@
 
     </ion-card-content>
 
-    <ion-button (click)="guardar()" expand="block">
-      Crear cuenta
-    </ion-button>
+    <ion-button (click)="guardar()" expand="block">Crear cuenta</ion-button>
 
   </ion-card>
-
 </ion-content>

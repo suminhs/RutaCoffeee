@@ -5,7 +5,26 @@ import { HomePage } from './home.page';
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: HomePage,
+    children: [
+      {
+        path: 'cafes',
+        loadChildren: () => import('../tabs/cafes/cafes.module').then(m => m.CafesPageModule)
+      },
+      {
+        path: 'noticias',
+        loadChildren: () => import('../tabs/noticias/noticias.module').then(m => m.NoticiasPageModule)
+      },
+      {
+        path: 'posts',
+        loadChildren: () => import('../tabs/posts/posts.module').then(m => m.PostsPageModule)
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 

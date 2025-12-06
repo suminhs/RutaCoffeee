@@ -13,6 +13,11 @@
   width: 100%;
 }
 
+/* TÍTULO CENTRADO */
+ion-title {
+  margin: 0 auto;    
+}
+
 /* TARJETA */
 ion-card {
   background-color: white;
@@ -21,43 +26,23 @@ ion-card {
   width: 90%;
 }
 
-/* LOGO */
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 20%;
-}
-
-.logo-container img {
-  width: 60%;
-}
-
 /* CAMPOS */
-ion-card ion-input,
-ion-card ion-label,
-ion-card ion-item,
-ion-card ion-select {
+ion-card ion-input{  
   --background: transparent;
   color: black;
+  font-size: small;    
 }
 
-ion-card input,
-ion-card select {
-  background-color: transparent;
+ion-card ion-label {
+  --background: transparent;
   color: black;
+  font-size: medium;      
 }
 
-/* BOTÓN */
-ion-card ion-button {
-  --background: #160c00a2;
-  color: white;
-  padding: 10px;
-}
 
 /* FECHA - Angular Material */
 .fecha-container {
-  padding: 0 20px;
+  padding: 0 20px;  
 }
 
 mat-form-field {
@@ -73,8 +58,9 @@ mat-datepicker-toggle {
   background-color: transparent !important;
 }
 
-/* TÍTULO CENTRADO */
-.center-title {
-  margin: 0 auto;
-  text-align: center;
+/* BOTÓN */
+ion-card ion-button {
+  --background: #160c00a2;
+  color: white;
+  padding-bottom: 10px;  
 }

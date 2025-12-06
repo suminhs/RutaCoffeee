@@ -7,29 +7,33 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('./pages/login/login.module').then(m => m.LoginPageModule)
-  },  
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
   },
+
+  // HOME normal — sin tabs
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-     canActivate: [AuthGuard]
-    
-  },  
-  {
-    path: 'registro',
     loadChildren: () =>
-      import('./pages/registro/registro.module').then(m => m.RegistroPageModule)
-  },  
+      import('./home/home.module').then(m => m.HomePageModule),
+    canActivate: [AuthGuard]
+  },
+
+  // TABS
   {
     path: 'tabs',
     loadChildren: () =>
       import('./tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AuthGuard]
-  },  
+  },
+
+  // redirección
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  // otras rutas
+  {
+    path: 'registro',
+    loadChildren: () =>
+      import('./pages/registro/registro.module').then(m => m.RegistroPageModule)
+  },
   {
     path: 'profile',
     loadChildren: () =>
@@ -42,19 +46,10 @@ const routes: Routes = [
       import('./pages/contactanos/contactanos.module').then(m => m.ContactanosPageModule),
     canActivate: [AuthGuard]
   },
-  {
-    path: 'cerrar-sesion',
-    loadChildren: () =>
-      import('./pages/cerrar-sesion/cerrar-sesion.module').then(m => m.CerrarSesionPageModule)
-  },
-  {
-    path: 'cafes',
-    loadChildren: () =>
-      import('./pages/cafes/cafes.module').then(m => m.CafesPageModule),
-    canActivate: [AuthGuard]
-  },  
-  {
-    path: '**',
+
+  // 404
+  { 
+    path: '**', 
     loadChildren: () =>
       import('./not-found/not-found.module').then(m => m.NotFoundPageModule)
   }

@@ -9,15 +9,22 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'create-post',
-        loadChildren: () =>
-          import('./create-post/create-post.module').then(m => m.CreatePostPageModule)
-      },
-      {
         path: 'posts',
         loadChildren: () =>
           import('./posts/posts.module').then(m => m.PostsPageModule)
       },
+      {
+        path: 'noticias',
+        loadChildren: () =>
+          import('./noticias/noticias.module').then(m => m.NoticiasPageModule)
+      },
+      {
+        path: 'cafes',
+        loadChildren: () =>
+          import('./cafes/cafes.module').then(m => m.CafesPageModule)
+      },
+
+      // Tab por defecto
       {
         path: '',
         redirectTo: 'posts',
