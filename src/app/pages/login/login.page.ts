@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage-angular';
 export class LoginPage {
 
   usuario: string = '';
-  password: string = '';
+  password: string = '';  
 
   constructor(
     private alertController: AlertController,
@@ -22,20 +22,18 @@ export class LoginPage {
   ) {}
 
   async ngOnInit() {
-    await this.storage.create(); // Inicializa Storage
+    await this.storage.create();
   }
 
-  // Alerta simple
   async mostrarAlerta(mensaje: string) {
     const alert = await this.alertController.create({
-      header: 'Error',
+      header: 'Mensaje',
       message: mensaje,
       buttons: ['OK']
     });
     await alert.present();
   }
 
-  // Validación de usuario
   validarlogin() {
     const usuarioRegex = /^[a-zA-Z0-9]{3,8}$/;
     return usuarioRegex.test(this.usuario);
@@ -70,7 +68,7 @@ export class LoginPage {
     if (isAuthenticated) {
 
       // Guardamos al usuario logueado
-      await this.storage.set('usuarioLogueado', this.usuario);
+      localStorage.setItem('usuarioLogueado', this.usuario);
 
       // Permiso para ir al home
       localStorage.setItem('usuarioActivo', 'true');

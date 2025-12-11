@@ -9,19 +9,19 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class AppComponent {
-  constructor(private menu: MenuController,
-              private router: Router) {}
 
-  cerrarSesion() {
-    localStorage.removeItem('usuarioActivo'); 
-    localStorage.removeItem('username');
-    console.log('Sesión cerrada');
-    this.menu.close('mainMenu');
-    this.router.navigate(['/login']);
-  }
+  constructor(
+    private menu: MenuController,
+    private router: Router
+  ) {}
 
   closeMenu() {
     this.menu.close();
   }
 
+  cerrarSesion() {
+    this.menu.close();
+    localStorage.removeItem('usuarioActivo');
+    this.router.navigate(['/login']);
+  }
 }

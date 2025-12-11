@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,13 @@ export class AuthGuard implements CanActivate {
 
   constructor(private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(): boolean | UrlTree {
+
     const sesionActiva = localStorage.getItem('usuarioActivo') === 'true';
 
+    // Si NO hay sesion → redirigir al login
     if (!sesionActiva) {
-      this.router.navigate(['/login']); 
-      return false;
+      return this.router.parseUrl('/login');
     }
 
     return true;

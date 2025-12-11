@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -8,34 +7,36 @@ const routes: Routes = [
     path: '',
     component: TabsPage,
     children: [
+
       {
         path: 'posts',
         loadChildren: () =>
-          import('./posts/posts.module').then(m => m.PostsPageModule)
+          import('../tabs/posts/posts.module').then(m => m.PostsPageModule)
       },
       {
         path: 'noticias',
         loadChildren: () =>
-          import('./noticias/noticias.module').then(m => m.NoticiasPageModule)
+          import('../tabs/noticias/noticias.module').then(m => m.NoticiasPageModule)
       },
       {
         path: 'cafes',
         loadChildren: () =>
-          import('./cafes/cafes.module').then(m => m.CafesPageModule)
+          import('../tabs/cafes/cafes.module').then(m => m.CafesPageModule)
       },
 
-      // Tab por defecto
+      // 👉 ruta por defecto dentro de tabs
       {
         path: '',
-        redirectTo: 'posts',
+        redirectTo: '/tabs/posts',
         pathMatch: 'full'
       }
     ]
-  }
+  },
+  
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}

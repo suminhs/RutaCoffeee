@@ -1,34 +1,39 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbserviceService {
 
-  private dbReady: Promise<void>;
-  private dbReadyResolve!: () => void;
-
   public dbInstance!: SQLiteObject;
+  private isNative: boolean = false;
 
-  constructor(private sqlite: SQLite) {
-
-    this.dbReady = new Promise(resolve => {
-      this.dbReadyResolve = resolve;
-    });
-
+  constructor(
+    private sqlite: SQLite,
+    private platform: Platform
+  ) {
     this.init();
   }
 
   async init() {
-    await this.initializeDatabase();
-    this.dbReadyResolve();
+    await this.platform.ready();
+
+    // Detecta si estamos en Android o iOS
+    this.isNative = this.platform.is('android') || this.platform.is('ios');
+
+    if (this.isNative) {
+      console.log("🔵 MODO NATIVO → usando SQLite");
+      await this.initializeDatabase();
+    } else {
+      console.log("🟡 MODO NAVEGADOR → SQLite desactivado, usando modo mock");
+    }
   }
 
-  async isReady() {
-    return this.dbReady;
-  }
-
+  // ======================================
+  // Inicialización SQLITE (solo móvil)
+  // ======================================
   async initializeDatabase() {
     console.log("INI DB...");
     this.dbInstance = await this.sqlite.create({
@@ -45,7 +50,7 @@ export class DbserviceService {
 
     await this.dbInstance.executeSql(
       `CREATE TABLE IF NOT EXISTS usuarios (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,        
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         nombre TEXT,
         apellido TEXT,
         usuario TEXT UNIQUE,
@@ -58,94 +63,70 @@ export class DbserviceService {
     console.log("TABLA USUARIOS LISTA");
   }
 
-  // ======================================
-  // Registrar usuario
-  // ======================================
-  async registerUser(
-    nombre: string,
-    apellido: string,
-    usuario: string,
-    email: string,
-    password: string,
-    fechaNacimiento: string
-  ): Promise<boolean> {
-
-    await this.isReady();
+  // ==========================================================
+  // REGISTRAR USUARIO (solo en móvil)
+  // ==========================================================
+  async registerUser(nombre: string, apellido: string, usuario: string, email: string, password: string, fechaNacimiento: string) {
+    
+    if (!this.isNative) {
+      console.warn("⚠ Intento de registrar usuario en navegador → Bloqueado.");
+      return false;
+    }
 
     const exists = await this.userExists(usuario);
-    if (exists) {
-      console.log("Usuario duplicado");
-      return false;
-    }
+    if (exists) return false;
 
-    try {
-      await this.dbInstance.executeSql(
-        `INSERT INTO usuarios (nombre, apellido, usuario, email, password, fecha_nacimiento)
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [nombre, apellido, usuario, email, password, fechaNacimiento]
-      );
+    await this.dbInstance.executeSql(
+      `INSERT INTO usuarios (nombre, apellido, usuario, email, password, fecha_nacimiento)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [nombre, apellido, usuario, email, password, fechaNacimiento]
+    );
 
+    return true;
+  }
+
+  // ==========================================================
+  // LOGIN
+  // ==========================================================
+  async loginUser(usuario: string, password: string) {
+
+    if (!this.isNative) {
+      console.warn("🟡 LOGIN simulado en navegador");
+      // NO consultamos BD, solo permitimos navegar.
       return true;
-
-    } catch (error: any) {
-      console.error("Error registrando usuario:", error);
-      return false;
     }
+
+    const result = await this.dbInstance.executeSql(
+      'SELECT * FROM usuarios WHERE usuario = ? AND password = ?',
+      [usuario, password]
+    );
+
+    return result.rows.length > 0;
   }
 
-  // ======================================
-  // Login
-  // ======================================
-  async loginUser(usuario: string, password: string): Promise<boolean> {
-
-    await this.isReady();
-
-    try {
-      const result = await this.dbInstance.executeSql(
-        'SELECT * FROM usuarios WHERE usuario = ? AND password = ?',
-        [usuario, password]
-      );
-
-      return result.rows.length > 0;
-
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      return false;
+  // ==========================================================
+  // OBTENER USUARIO
+  // ==========================================================
+  async getUserByUsuario(usuario: string) {
+    if (!this.isNative) {
+      console.warn("🟡 getUserByUsuario simulado en navegador");
+      return { usuario, nombre: "Modo Navegador" };
     }
+
+    const result = await this.dbInstance.executeSql(
+      'SELECT * FROM usuarios WHERE usuario = ?',
+      [usuario]
+    );
+
+    return result.rows.length > 0 ? result.rows.item(0) : null;
   }
 
-  // ======================================
-  // Obtener datos del usuario
-  // NECESARIO PARA GUARDARLO EN STORAGE
-  // ======================================
-  async getUserByUsuario(usuario: string): Promise<any> {
-
-    await this.isReady();
-
-    try {
-      const result = await this.dbInstance.executeSql(
-        'SELECT * FROM usuarios WHERE usuario = ?',
-        [usuario]
-      );
-
-      if (result.rows.length > 0) {
-        return result.rows.item(0); // Retorna objeto completo
-      } else {
-        return null;
-      }
-
-    } catch (error) {
-      console.error("Error obteniendo usuario:", error);
-      return null;
-    }
-  }
-
-  // ======================================
-  // Verificar existencia
-  // ======================================
+  // ==========================================================
+  // VERIFICAR EXISTENCIA
+  // ==========================================================
   async userExists(usuario: string): Promise<boolean> {
 
-    await this.isReady();
+    if (!this.isNative) return false; // navegador no tiene usuarios
 
     const result = await this.dbInstance.executeSql(
       'SELECT usuario FROM usuarios WHERE usuario = ?',
@@ -155,12 +136,18 @@ export class DbserviceService {
     return result.rows.length > 0;
   }
 
-// ======================================
+  // ======================================
 // Actualizar usuario
 // ======================================
 async actualizarUsuario(data: any): Promise<boolean> {
-  await this.isReady();
 
+  // MODO NAVEGADOR
+  if (!this.isNative) {
+    console.warn("🟡 Actualización simulada en navegador");
+    return true;
+  }
+
+  // MODO ANDROID / iOS
   const sql = `
     UPDATE usuarios
     SET nombre = ?, apellido = ?, email = ?, fecha_nacimiento = ?
@@ -176,11 +163,13 @@ async actualizarUsuario(data: any): Promise<boolean> {
       data.usuario
     ]);
 
+    console.log("Usuario actualizado correctamente");
     return true;
 
   } catch (error) {
-    console.error("Error actualizando usuario:", error);
+    console.error("❌ Error actualizando usuario:", error);
     return false;
   }
-  }
+}
+
 }

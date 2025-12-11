@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.page.html',
-  styleUrls: ['./posts.page.css'],
+  styleUrls: ['./posts.page.scss'],
   standalone: false,
 })
 export class PostsPage implements OnInit {

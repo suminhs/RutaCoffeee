@@ -5,7 +5,7 @@ describe('CerrarSesionPage', () => {
   let component: CerrarSesionPage;
   let fixture: ComponentFixture<CerrarSesionPage>;
 
-  beforeEach(() => {
+  beforeEach(async() => {
     fixture = TestBed.createComponent(CerrarSesionPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

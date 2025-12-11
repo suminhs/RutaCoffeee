@@ -1,62 +1,75 @@
-  <ion-header [translucent]="true">
-    <ion-toolbar color="light">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<!-- HEADER SUPERIOR -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content [fullscreen]="true" class="ion-padding">
+<!-- CONTENIDO PRINCIPAL -->
+<ion-content [fullscreen]="true" class="ion-padding">
 
-    <h2 class="ion-text-center">DATOS PERSONALES</h2>
+  <h2 class="ion-text-center">DATOS PERSONALES</h2>
 
-    <!-- SEGMENT -->
-    <ion-segment [(ngModel)]="segmentValue">
-      <ion-segment-button value="datos">
-        <ion-label>Mis Datos</ion-label>
-      </ion-segment-button>
+  <!-- CARD 1: SEGMENTOS -->
+  <ion-card>
+    <ion-card-content>
 
-      <ion-segment-button value="experiencia">
-        <ion-label>Experiencia Laboral</ion-label>
-      </ion-segment-button>
+      <!-- SEGMENT -->
+      <ion-segment [(ngModel)]="segmentValue">
+        <ion-segment-button value="datos">
+          <ion-label>Mis Datos</ion-label>
+        </ion-segment-button>
 
-      <ion-segment-button value="certificaciones">
-        <ion-label>Certificaciones</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+        <ion-segment-button value="experiencia">
+          <ion-label>Experiencia Laboral</ion-label>
+        </ion-segment-button>
 
-    <!-- CONTENEDOR DEL SEGMENT -->
-    <div class="segment-content">
-      <app-mis-datos *ngIf="segmentValue === 'datos'"></app-mis-datos>
-      <app-experiencia-laboral *ngIf="segmentValue === 'experiencia'"></app-experiencia-laboral>
-      <app-certificaciones *ngIf="segmentValue === 'certificaciones'"></app-certificaciones>
-    </div>
+        <ion-segment-button value="certificaciones">
+          <ion-label>Certificaciones</ion-label>
+        </ion-segment-button>
+      </ion-segment>
 
-    <ion-router-outlet></ion-router-outlet>
+      <!-- CONTENIDO DEL SEGMENT -->
+      <div class="segment-content" style="margin-top: 15px;">
+        <app-mis-datos *ngIf="segmentValue === 'datos'"></app-mis-datos>
+        <app-experiencia-laboral *ngIf="segmentValue === 'experiencia'"></app-experiencia-laboral>
+        <app-certificaciones *ngIf="segmentValue === 'certificaciones'"></app-certificaciones>
+      </div>
 
-  </ion-content>
-  
-  <!-- TABS ABAJO -->
-  <ion-tabs>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-tab-bar slot="bottom">
+  <!-- CARD 2: GEOLOCALIZACIÓN -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Mi Ubicación Actual</ion-card-title>
+    </ion-card-header>
 
-    <ion-tab-button tab="posts" [routerLink]="['/home/posts']">
-      <ion-icon name="chatbubble-outline"></ion-icon>
-      <ion-label>Posts</ion-label>
-    </ion-tab-button>
+    <ion-card-content>
 
-    <ion-tab-button tab="noticias" [routerLink]="['/home/noticias']">
-      <ion-icon name="newspaper-outline"></ion-icon>
-      <ion-label>Noticias</ion-label>
-    </ion-tab-button>
+      <ion-button expand="block" (click)="obtenerUbicacion()">
+        Obtener ubicación
+      </ion-button>
 
-    <ion-tab-button tab="cafes" [routerLink]="['/home/cafes']">
-      <ion-icon name="cafe-outline"></ion-icon>
-      <ion-label>Cafés</ion-label>
-    </ion-tab-button>
+      <div *ngIf="latitud && longitud" style="margin-top: 15px;">
+        <p><strong>Latitud:</strong> {{ latitud }}</p>
+        <p><strong>Longitud:</strong> {{ longitud }}</p>
 
-  </ion-tab-bar>
+        <!-- MINI MAPA -->
+        <iframe
+          width="100%"
+          height="250"
+          frameborder="0"
+          style="border:0; margin-top: 10px;"
+          [src]="mapUrl"
+          allowfullscreen>
+        </iframe>
+      </div>
 
-</ion-tabs>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

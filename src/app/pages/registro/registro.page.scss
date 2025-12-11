@@ -51,7 +51,7 @@ mat-form-field {
 
 input[matInput] {
   background-color: transparent !important;
-  color: black;
+  color: rgb(0, 17, 255);
 }
 
 mat-datepicker-toggle {
@@ -60,7 +60,7 @@ mat-datepicker-toggle {
 
 /* BOTÓN */
 ion-card ion-button {
-  --background: #160c00a2;
+  --background: #702f0aa2;
   color: white;
   padding-bottom: 10px;  
 }

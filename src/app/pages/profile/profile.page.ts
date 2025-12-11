@@ -10,12 +10,10 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class ProfilePage implements OnInit {
 
-  user: any = ''; // usuario logueado
-
-  nombre: string = '';
-  correo: string = '';
-  telefono: string = '';
-  fechaNacimiento: any = '';
+  user: any = '';
+  nombres: string = '';
+  apellidos: string = '';
+  email: string = '';  
 
   constructor(
     private dbService: DbserviceService,
@@ -23,46 +21,40 @@ export class ProfilePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.storage.create();
 
-    // 1) Obtener usuario logueado desde Storage
-    this.user = await this.storage.get('usuarioLogueado');
+  this.user = localStorage.getItem('usuarioLogueado');
 
-    if (this.user) {
-      // 2) Buscar sus datos en la BD
-      this.cargarDatosUsuario(this.user);
+  if (this.user) {
+    this.cargarDatosUsuario(this.user);
     }
   }
 
   cargarDatosUsuario(usuario: string) {
-    this.dbService.getUserByUsuario(usuario).then((data: any) => {
-      if (data) {
-        this.nombre = data.nombre;
-        this.correo = data.correo;
-        this.telefono = data.telefono;
-        this.fechaNacimiento = data.fechaNacimiento;
-      }
-    });
-  }
+  this.dbService.getUserByUsuario(usuario).then((data: any) => {
+    if (data) {
+      this.nombres = data.nombres;
+      this.apellidos = data.apellidos;
+      this.email = data.email;      
+    }
+  });
+}
 
   guardarCambios() {
     const datosActualizados = {
       usuario: this.user,
-      nombre: this.nombre,
-      correo: this.correo,
-      telefono: this.telefono,
-      fechaNacimiento: this.fechaNacimiento
+      nombres: this.nombres,
+      apellidos: this.apellidos,
+      email: this.email      
     };
 
-    this.dbService.actualizarUsuario(datosActualizados).then(() => {
-      alert("Datos actualizados correctamente");
-    });
-  }
+    this.dbService.actualizarUsuario(datosActualizados)
+    .then(() => alert("Datos actualizados correctamente"))
+    .catch(() => alert("Error al actualizar"));
+    }  
 
   limpiarCampos() {
-    this.nombre = '';
-    this.correo = '';
-    this.telefono = '';
-    this.fechaNacimiento = '';
+    this.nombres = '';
+    this.apellidos = '';
+    this.email = '';    
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuController, AlertController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MenuController, AlertController, IonModal } from '@ionic/angular';
 import { FormtearFechaPipe } from '../../pipes/formtear-fecha.pipe';
 import { DbserviceService } from '../../services/dbservice.service';
 import { NavController } from '@ionic/angular';
@@ -12,8 +12,10 @@ import { NavController } from '@ionic/angular';
 })
 export class RegistroPage implements OnInit {
 
-  nombre: string = '';
-  apellido: string = '';
+  @ViewChild('dateModal', { static: false }) dateModal!: IonModal;
+
+  nombres: string = '';
+  apellidos: string = '';
   usuario: string = '';
   email: string = '';
   password: string = '';
@@ -31,18 +33,20 @@ export class RegistroPage implements OnInit {
     this.menu.close("mainMenu");
   }
 
+  
   async presentAlert(message: string) {
     const alert = await this.alertController.create({
       header: 'Mensaje',
-      message: message,
+      message,
       buttons: ['OK']
     });
     await alert.present();
   }
 
+  
   guardar() {
 
-    if (!this.nombre.trim() || !this.apellido.trim()) {
+    if (!this.nombres.trim() || !this.apellidos.trim()) {
       this.presentAlert("Debe ingresar nombre y apellido.");
       return;
     }
@@ -80,13 +84,14 @@ export class RegistroPage implements OnInit {
     this.registrar();
   }
 
+  
   async registrar() {
 
     const fechaFormateada = this.formtearFechaPipe.transform(this.selectedDate);
 
     const success = await this.dataServices.registerUser(
-      this.nombre.trim(),
-      this.apellido.trim(),
+      this.nombres.trim(),
+      this.apellidos.trim(),
       this.usuario.trim(),
       this.email.trim(),
       this.password.trim(),
@@ -94,13 +99,27 @@ export class RegistroPage implements OnInit {
     );
 
     if (success) {
+      await localStorage.setItem('usuarioLogueado', this.usuario.trim());
+
       await this.presentAlert("Registro exitoso. Ahora puedes iniciar sesión.");
-
-      // 👇 IMPORTANTE: redirigir correctamente para evitar saltar al Profile
+      
       this.navCtrl.navigateRoot('/login');
-
     } else {
       this.presentAlert("Error al registrar. El usuario ya existe o ocurrió un error.");
     }
   }
+
+  async openDatePicker() {
+    await this.dateModal.present();
+  }
+
+  async closeDatePicker() {
+    await this.dateModal.dismiss();
+  }
+
+  async confirmDate() {
+    console.log('Fecha seleccionada:', this.selectedDate);
+    await this.closeDatePicker();
+  }
+
 }
