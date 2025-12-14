@@ -11,8 +11,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean | UrlTree {
 
     const sesionActiva = localStorage.getItem('usuarioActivo') === 'true';
-
-    // Si NO hay sesion → redirigir al login
+    
     if (!sesionActiva) {
       return this.router.parseUrl('/login');
     }

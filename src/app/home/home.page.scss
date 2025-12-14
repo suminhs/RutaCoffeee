@@ -32,7 +32,7 @@
   color: #555;
 }
 
-/* Grid de avatares */
+// Grid de avatares //
 .avatar-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -55,7 +55,7 @@ ion-avatar img {
   object-fit: cover;
 }
 
-    // Fondo de pantalla //
+// Fondo de pantalla //
 .ion-padding {
     --background: none;
     background-image: url(../../assets/img/img1.jpg);

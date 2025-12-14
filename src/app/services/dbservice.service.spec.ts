@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { DbserviceService } from '../../services/dbservice.service';
+import { DbserviceService } from './dbservice.service';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
 describe('DbserviceService', () => {
